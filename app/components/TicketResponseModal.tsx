@@ -8,10 +8,7 @@ interface TicketModalProps {
   onClose: () => void;
 }
 
-const TicketModal: React.FC<TicketModalProps> = ({
-  ticket,
-  onClose,
-}) => {
+const TicketModal: React.FC<TicketModalProps> = ({ ticket, onClose }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [newStatus, setNewStatus] = useState(ticket.status);
   const [response, setResponse] = useState("");
@@ -29,12 +26,14 @@ const TicketModal: React.FC<TicketModalProps> = ({
 
   const handleSubmit = async () => {
     try {
-      console.log(
-        "Would normally send email to",
-        ticket.email,
-        "with reply:",
-        response
-      );
+      if (response) {
+        console.log(
+          "Would normally send email to",
+          ticket.email,
+          "with reply:",
+          response
+        );
+      }
       if (ticket.id !== undefined) {
         await editStatus(ticket.id, newStatus);
         handleClose();

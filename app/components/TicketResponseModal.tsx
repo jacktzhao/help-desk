@@ -35,6 +35,7 @@ const TicketModal: React.FC<TicketModalProps> = ({
         "Would normally send email to",
         ticket.email,
         "with reply:",
+        response
       );
       if (ticket.id !== undefined) {
         await editStatus(ticket.id, newStatus);

@@ -1,0 +1,54 @@
+.ticketListContainer {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.ticketTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.ticketTable th,
+.ticketTable td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.ticketTable th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.ticketTable tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.statusLabel {
+  padding: 2px 4px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+.statusColumn {
+  border-bottom: 1px solid #ccc;
+}
+
+.newStatus {
+  background-color: #f44336;
+  color: white;
+}
+
+.inProgressStatus {
+  background-color: #2196f3;
+  color: white;
+}
+
+.resolvedStatus {
+  background-color: #4caf50;
+  color: white;
+}

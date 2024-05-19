@@ -19,6 +19,7 @@ export const addTicket = async (ticket: Ticket) => {
       email: ticket.email,
       description: ticket.description,
       status: ticket.status,
+      createdAt: ticket.createdAt,
     });
   } catch (e) {
     console.error("Error adding ticket: ", e);
@@ -41,6 +42,7 @@ export const getAllTickets = (
           email: doc.data().email,
           description: doc.data().description,
           status: doc.data().status,
+          createdAt: doc.data().createdAt,
         };
         tickets.push(ticket);
       });

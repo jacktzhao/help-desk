@@ -19,6 +19,7 @@ const CreateTicketForm: React.FC = () => {
       email,
       description,
       status: "new",
+      createdAt: Date.now(),
     };
 
     try {
@@ -42,7 +43,7 @@ const CreateTicketForm: React.FC = () => {
     <div>
       {submitted ? (
         <div>
-          <p>Thank you for submitting the ticket!</p>
+          <p>Thank you for submitting a support ticket!</p>
           <button className={styles.button} onClick={handleReset}>
             Submit Another Ticket
           </button>

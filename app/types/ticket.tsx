@@ -4,4 +4,5 @@ export interface Ticket {
   email: string;
   description: string;
   status: "new" | "in-progress" | "resolved";
+  createdAt: number;
 }

@@ -12,7 +12,11 @@ const TicketList: React.FC = () => {
 
   useEffect(() => {
     const unsubscribe = getAllTickets((fetchedTickets: Ticket[]) => {
-      setTickets(fetchedTickets);
+      const sortedTickets = fetchedTickets.sort(
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
+      setTickets(sortedTickets);
     });
 
     return () => {

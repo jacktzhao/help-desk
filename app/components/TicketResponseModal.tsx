@@ -31,7 +31,11 @@ const TicketModal: React.FC<TicketModalProps> = ({
 
   const handleSubmit = async () => {
     try {
-      console.log("Response:", response);
+      console.log(
+        "Would normally send email to",
+        ticket.email,
+        "with reply:",
+      );
       if (ticket.id !== undefined) {
         await editStatus(ticket.id, newStatus);
         handleClose();

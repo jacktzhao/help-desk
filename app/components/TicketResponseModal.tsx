@@ -6,13 +6,11 @@ import { editStatus } from "../api/tickets";
 interface TicketModalProps {
   ticket: Ticket;
   onClose: () => void;
-  refetchTickets: () => Promise<void>;
 }
 
 const TicketModal: React.FC<TicketModalProps> = ({
   ticket,
   onClose,
-  refetchTickets,
 }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [newStatus, setNewStatus] = useState(ticket.status);
@@ -40,7 +38,6 @@ const TicketModal: React.FC<TicketModalProps> = ({
       if (ticket.id !== undefined) {
         await editStatus(ticket.id, newStatus);
         handleClose();
-        await refetchTickets();
       } else {
         console.error("Ticket ID is undefined");
       }

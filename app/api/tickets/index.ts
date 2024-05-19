@@ -6,6 +6,9 @@ import {
   getDoc,
   addDoc,
   updateDoc,
+  onSnapshot,
+  QuerySnapshot,
+  DocumentData,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 
@@ -22,28 +25,33 @@ export const addTicket = async (ticket: Ticket) => {
   }
 };
 
-export const getAllTickets = async (): Promise<Ticket[]> => {
-  try {
-    const ticketsCollection = collection(db, "tickets");
-    const querySnapshot = await getDocs(ticketsCollection);
-    const tickets: Ticket[] = [];
+export const getAllTickets = (
+  callback: (tickets: Ticket[]) => void
+): (() => void) => {
+  const tickets = collection(db, "tickets");
 
-    querySnapshot.forEach((doc) => {
-      const ticket: Ticket = {
-        id: doc.id,
-        name: doc.data().name,
-        email: doc.data().email,
-        description: doc.data().description,
-        status: doc.data().status,
-      };
-      tickets.push(ticket);
-    });
+  const unsubscribe = onSnapshot(
+    tickets,
+    (querySnapshot: QuerySnapshot<DocumentData>) => {
+      const tickets: Ticket[] = [];
+      querySnapshot.forEach((doc) => {
+        const ticket: Ticket = {
+          id: doc.id,
+          name: doc.data().name,
+          email: doc.data().email,
+          description: doc.data().description,
+          status: doc.data().status,
+        };
+        tickets.push(ticket);
+      });
+      callback(tickets);
+    },
+    (error) => {
+      console.error("Error getting tickets:", error);
+    }
+  );
 
-    return tickets;
-  } catch (error) {
-    console.error("Error retrieving tickets:", error);
-    throw error;
-  }
+  return unsubscribe;
 };
 
 export const editStatus = async (
@@ -52,7 +60,6 @@ export const editStatus = async (
 ): Promise<void> => {
   try {
     const ticketRef = doc(db, "tickets", ticketId);
-
     const ticketSnapshot = await getDoc(ticketRef);
 
     if (ticketSnapshot.exists()) {

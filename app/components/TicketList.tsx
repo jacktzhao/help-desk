@@ -11,26 +11,14 @@ const TicketList: React.FC = () => {
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
 
   useEffect(() => {
-    const fetchTickets = async () => {
-      try {
-        const fetchedTickets = await getAllTickets();
-        setTickets(fetchedTickets);
-      } catch (error) {
-        console.error("Error fetching tickets:", error);
-      }
-    };
-
-    fetchTickets();
-  }, []);
-
-  const refetchTickets = async (): Promise<void> => {
-    try {
-      const fetchedTickets = await getAllTickets();
+    const unsubscribe = getAllTickets((fetchedTickets: Ticket[]) => {
       setTickets(fetchedTickets);
-    } catch (error) {
-      console.error("Error fetching tickets:", error);
-    }
-  };
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const handleTicketClick = (ticket: Ticket) => {
     setSelectedTicket(ticket);
@@ -88,7 +76,6 @@ const TicketList: React.FC = () => {
         <TicketModal
           ticket={selectedTicket}
           onClose={() => setSelectedTicket(null)}
-          refetchTickets={() => refetchTickets()}
         />
       )}
     </div>

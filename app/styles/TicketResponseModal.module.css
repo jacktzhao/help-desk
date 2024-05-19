@@ -20,10 +20,10 @@
   overflow: auto;
 }
 
-.modal-content h2 {
+.modalContent h2 {
   margin-top: 0;
 }
 
-.modal-content button {
+.modalContent button {
   margin-top: 10px;
 }
